@@ -136,22 +136,26 @@
 
 		/**
 		 * Subscribe / Unsubscribe button
+         *
+         * Note: The subscribe and unsubscribe buttons should share a common parent
 		 */
-		$("a.subscribe").click(function() {
+		$("a.subscribe").click(function(e) {
 			$.post($(this).attr("href"), function(data) {
 				if(data == 1) {
-					$("td.replyButton a.subscribe").hide().addClass("hidden");
-					$("td.replyButton a.unsubscribe").show().removeClass("hidden");
+                    var anchor = $(e.target);
+					anchor.hide().addClass("hidden");
+					anchor.parent().find("a.unsubscribe").show().removeClass("hidden");
 				}
 			});
 			return false;
 		});
 
-		$("a.unsubscribe").click(function() {
+		$("a.unsubscribe").click(function(e) {
 			$.post($(this).attr("href"), function(data) {
 				if(data == 1) {
-					$("td.replyButton a.unsubscribe").hide().addClass("hidden");
-					$("td.replyButton a.subscribe").show().removeClass("hidden");
+                    var anchor = $(e.target);
+					anchor.hide().addClass("hidden");
+					anchor.parent().find("a.subscribe").show().removeClass("hidden");
 				}
 			});
 			return false;
